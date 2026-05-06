@@ -1,0 +1,17 @@
+
+<h4>All Reviews</h4>
+<ul>
+<% for(review of listing.reviews) {%>
+<li><%= review.comment %> <%= review.rating %></li>
+
+
+<form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="post">
+    <button>Delete</button>
+</form>
+
+
+<% } %>
+</ul>
+
+
+

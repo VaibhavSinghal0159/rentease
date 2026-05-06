@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wanderlust - Listing Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+
+
+.review-section {
+  margin-top: 2rem;
+}
+
+.review-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  margin-bottom: 1.5rem;
+}
+
+.review-card h6 {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.review-card .meta {
+  font-size: 0.85rem;
+  color: #555;
+  margin-bottom: 0.75rem;
+}
+
+.review-card .stars {
+  color: #ff385c;
+  margin-bottom: 0.5rem;
+}
+
+.review-card p {
+  font-size: 0.95rem;
+  color: #222;
+  line-height: 1.4;
+}
+
+.review-card form {
+  margin-top: 0.5rem;
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+/*  */
+s
+        .review-form {
+  border: 1px solid var(--light-gray);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  background-color: #fefefe;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.review-form .form-label {
+  font-weight: 600;
+  color: var(--dark-text);
+}
+
+.review-form .form-control,
+.review-form .form-range {
+  border-radius: var(--border-radius);
+  border: 1px solid var(--light-gray);
+}
+
+.review-form .form-control:focus,
+.review-form .form-range:focus {
+  border-color: var(--primary-red);
+  box-shadow: 0 0 0 0.15rem rgba(230, 57, 70, 0.25);
+}
+
+
+
+
+        :root {
+            --primary-red: #e63946;
+            --dark-red: #d62828;
+            --light-red: #ff6b6b;
+            --light-bg: #f8f9fa;
+            --dark-text: #212529;
+            --light-gray: #e9ecef;
+            --border-radius: 8px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fff;
+            color: var(--dark-text);
+            padding-top: 70px;
+            padding-bottom: 100px;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        /* Navbar styling */
+        .navbar {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 12px 0;
+            border-bottom: 2px solid var(--primary-red);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--dark-text);
+        }
+        
+        .navbar-brand i {
+            color: var(--primary-red);
+            margin-right: 8px;
+        }
+        
+        .navbar-nav .nav-link {
+            color: var(--dark-text);
+            font-weight: 500;
+            margin: 0 8px;
+            padding: 8px 12px;
+            border-radius: var(--border-radius);
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            background-color: var(--primary-red);
+            color: white !important;
+        }
+        
+        .navbar-nav .nav-link:hover {
+            transform: translateY(-2px);
+        }
+        
+        .dropdown-menu {
+            border-radius: var(--border-radius);
+            border: 1px solid var(--light-gray);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .dropdown-item {
+            padding: 8px 16px;
+            font-weight: 500;
+        }
+        
+        .dropdown-item:hover {
+            background-color: var(--primary-red);
+            color: white;
+        }
+        
+        .btn-outline-success {
+            border-color: var(--primary-red);
+            color: var(--primary-red);
+        }
+        
+        .btn-outline-success:hover {
+            background-color: var(--primary-red);
+            border-color: var(--primary-red);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0;
+            text-align: center;
+            margin-bottom: 40px;
+            border-radius: var(--border-radius);
+            position: relative;
+        }
+        
+        .hero h1 {
+            font-weight: 700;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-text);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--dark-text);
+        }
+        
+        /* Listing Details */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .listing-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--light-gray);
+        }
+        
+        .listing-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--dark-text);
+        }
+        
+        .listing-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            overflow: hidden;
+            margin-bottom: 40px;
+            border: 1px solid var(--light-gray);
+        }
+        
+        .listing-image {
+            height: 400px;
+            background: linear-gradient(to right, var(--light-red), #ff9a9e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            
+        }
+        
+        .listing-details {
+            padding: 30px;
+        }
+        
+        .listing-details ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .listing-details li {
+            padding: 15px 0;
+            border-bottom: 1px solid var(--light-gray);
+            display: flex;
+            align-items: center;
+        }
+        
+        .listing-details li:last-child {
+            border-bottom: none;
+        }
+        
+        .detail-label {
+            font-weight: 600;
+            min-width: 150px;
+            color: var(--dark-text);
+        }
+        
+        .detail-value {
+            flex: 1;
+            color: var(--dark-text);
+        }
+        
+        .price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-red);
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .btn-edit {
+            background-color: var(--primary-red);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .btn-edit:hover {
+            background-color: var(--dark-red);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(230, 57, 70, 0.3);
+        }
+        
+        .btn-delete {
+            background-color: white;
+            color: var(--primary-red);
+            border: 2px solid var(--primary-red);
+            padding: 12px 30px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-delete:hover {
+            background-color: var(--primary-red);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* Footer styling */
+        .footer {
+            background-color: #f7f7f7;
+            padding: 30px 20px;
+            border-top: 1px solid #e4e4e4;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .footer-links a {
+            color: #222;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-red);
+            text-decoration: underline;
+        }
+        
+        .footer-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .language-currency {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+        
+        .copyright {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 60px 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .listing-image {
+                height: 300px;
+            }
+            
+            .listing-details li {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .detail-label {
+                margin-bottom: 5px;
+            }
+            
+            .footer {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .footer-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><i class="fa-solid fa-compass-drafting"></i>Wanderlust</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/listings">All Listings</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Add Listings
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/listings/new1">Create New Listings</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>Discover Extraordinary Places</h1>
+        <p>Find your perfect getaway with our curated selection of unique destinations</p>
+    </div>
+
+    <!-- Listing Details -->
+    <div class="container">
+        
+        <div class="listing-header">
+            <h2><%= listing.title %></h2>
+        </div>
+        
+        <div class="listing-card">
+            <div class="listing-image">
+                
+                <img src="<%= listing.image.url %>" alt="" style="width: 100%;
+  height: 100%;
+  object-fit: cover;">
+            </div>
+            
+            <div class="listing-details">
+                <ul>
+                    <li>
+                        <span class="detail-label">Title:</span>
+                        <span class="detail-value"><%= listing.title %></span>
+                    </li>
+                    <li>
+                        <span class="detail-label">Description:</span>
+                        <span class="detail-value"><%= listing.description %></span>
+                    </li>
+                    <li>
+                        <span class="detail-label">Price:</span>
+                       <span class="detail-value price">
+    ₹ <%= listing.price ? listing.price.toLocaleString("en-IN") : "N/A" %>/ night
+</span>
+
+                    </li>
+                    <li>
+                        <span class="detail-label">Location:</span>
+                        <span class="detail-value"><%= listing.location %></span></span>
+                    </li>
+                    <li>
+                        <span class="detail-label">Country:</span>
+                        <span class="detail-value"><%= listing.country %></span>
+                    </li>
+                </ul>
+                
+
+             
+               
+                <div class="action-buttons">
+                    <a href=" /listings/<%= listing._id %>/edit" class="btn-edit">
+                        <i class="fas fa-edit me-2"></i>Edit this listing
+                    </a>
+                    <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
+                        <button type="submit" class="btn-delete">
+                            <i class="fas fa-trash me-2"></i>Delete Listing
+                        </button>
+                    </form>
+                </div>
+           
+                <!-- review-section -->
+<!-- Review Form -->
+<form method="POST" action="/listings/<%= listing._id %>/reviews" class="review-form mt-4 w-100 needs-validation" novalidate>
+
+  <div class="mb-3">
+    <label for="rating" class="form-label">Rating</label>
+    <input type="range" min="1" max="5" id="rating" name="review[rating]" class="form-range" step="1" value="3">
+    <div class="d-flex justify-content-between px-1 small text-muted">
+      <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="comment" class="form-label">Comments</label>
+    <textarea name="review[comment]" id="comment" class="form-control" rows="4" placeholder="Share your experience..." required></textarea>
+    <div class="invalid-feedback">Please submit some comments for review </div>
+  </div>
+
+  <button type="submit" class="btn-edit mt-2">
+    <i class="fas fa-paper-plane me-2"></i>Submit Review
+  </button>
+</form>
+
+
+<hr>
+
+<h4>All Reviews</h4>
+<div class="review-section">
+  <div class="reviews-grid">
+    <% for(review of listing.reviews) { %>
+      <div class="review-card">
+        <h6><%= review.user?.username || "Guest" %></h6>
+        <div class="meta">★ <%= review.rating %> stars</div>
+        <div class="stars">
+          <% for(let i = 0; i < review.rating; i++) { %>★<% } %>
+        </div>
+        <p><%= review.comment %></p>
+
+        <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="post">
+          <button class="btn btn-sm btn-outline-danger mt-2">Delete</button>
+        </form>
+      </div>
+    <% } %>
+  </div>
+</div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-left">
+            <div class="copyright">© 2025 Wanderlust, Inc.</div>
+            <div class="footer-links">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Sitemap</a>
+                <a href="#">Company details</a>
+            </div>
+        </div>
+        
+        <div class="footer-right">
+            <div class="language-currency">
+                <span>🌐 English(IN)</span>
+                <span>₹ INR</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+        
+    </script>
+    <script>
+  // Bootstrap custom validation logic
+  (() => {
+    'use strict';
+    const forms = document.querySelectorAll('.needs-validation');
+
+    Array.from(forms).forEach(form => {
+      form.addEventListener('submit', event => {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      });
+    });
+  })();
+</script>
+
+   
+</body>
+</html>

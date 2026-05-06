@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footer Design</title>
+    <style>
+        /* .footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+} */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        .footer {
+            background-color: #f7f7f7;
+            padding: 20px;
+            border-top: 1px solid #e4e4e4;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .footer-links a {
+            color: #222;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .footer-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .language-currency {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+        
+        .copyright {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        @media (max-width: 768px) {
+            .footer {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .footer-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+    <footer class="footer">
+        <div class="footer-left">
+            <div class="copyright">© 2025 Wanderlust, Inc.</div>
+            <div class="footer-links">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Sitemap</a>
+                <a href="#">Company details</a>
+            </div>
+        </div>
+        
+        <div class="footer-right">
+            <div class="language-currency">
+                <span>🌐 English(IN)</span>
+                <span>₹ INR</span>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

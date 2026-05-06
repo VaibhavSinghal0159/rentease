@@ -1,0 +1,464 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up | Wanderlust</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4361ee;
+      --secondary: #3f37c9;
+      --accent: #fe424d;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --gray: #6c757d;
+      --light-gray: #e9ecef;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), 
+                  url('https://images.unsplash.com/photo-1503220317375-aaad61436b1b') center/cover no-repeat;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      margin: 0;
+    }
+    
+    .signup-container {
+      max-width: 1200px;
+      width: 100%;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+      display: flex;
+      flex-wrap: wrap;
+      animation: fadeIn 1s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .signup-hero {
+      flex: 1;
+      min-width: 300px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      padding: 40px;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .signup-hero::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .signup-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px;
+      left: -50px;
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.07);
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 30px;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .logo i {
+      margin-right: 12px;
+      color: #ffd166;
+    }
+    
+    .signup-hero h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 2;
+      line-height: 1.2;
+    }
+    
+    .signup-hero p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 30px;
+      position: relative;
+      z-index: 2;
+      max-width: 500px;
+      line-height: 1.6;
+    }
+    
+    .benefits {
+      position: relative;
+      z-index: 2;
+      margin-top: 40px;
+    }
+    
+    .benefit-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+    
+    .benefit-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+    
+    .benefit-text h4 {
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+    
+    .signup-form-container {
+      flex: 1;
+      min-width: 300px;
+      padding: 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: white;
+    }
+    
+    .signup-form-container h2 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+      color: var(--dark);
+    }
+    
+    .signup-form-container p {
+      color: var(--gray);
+      margin-bottom: 30px;
+    }
+    
+    .signup-form .form-group {
+      margin-bottom: 25px;
+      position: relative;
+    }
+    
+    .signup-form .form-label {
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: block;
+      color: var(--dark);
+    }
+    
+    .input-container {
+      position: relative;
+    }
+    
+    .input-container i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray);
+    }
+    
+    .signup-form input {
+      width: 100%;
+      padding: 14px 20px 14px 45px;
+      border: 2px solid var(--light-gray);
+      border-radius: 12px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+    
+    .signup-form input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.2);
+    }
+    
+    .password-toggle {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--gray);
+      cursor: pointer;
+    }
+    
+    .btn-signup {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--accent) 0%, #d62d20 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(254, 66, 77, 0.3);
+      margin-top: 10px;
+    }
+    
+    .btn-signup:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(254, 66, 77, 0.4);
+    }
+    
+    .login-link {
+      text-align: center;
+      margin-top: 25px;
+      color: var(--gray);
+    }
+    
+    .login-link a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+    
+    .login-link a:hover {
+      color: var(--secondary);
+      text-decoration: underline;
+    }
+    
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 25px 0;
+    }
+    
+    .divider::before,
+    .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--light-gray);
+    }
+    
+    .divider span {
+      padding: 0 15px;
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+    
+    .social-login {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+    
+    .social-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.3rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .social-btn.google {
+      background: linear-gradient(135deg, #ea4335 0%, #d62d20 100%);
+    }
+    
+    .social-btn.facebook {
+      background: linear-gradient(135deg, #3b5998 0%, #2d4373 100%);
+    }
+    
+    .social-btn.twitter {
+      background: linear-gradient(135deg, #1da1f2 0%, #0d8bd9 100%);
+    }
+    
+    .social-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .alert-container {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      width: 90%;
+      max-width: 600px;
+    }
+    
+    @media (max-width: 768px) {
+      .signup-container {
+        flex-direction: column;
+      }
+      
+      .signup-hero {
+        padding: 30px;
+      }
+      
+      .signup-hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .signup-form-container {
+        padding: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+ 
+
+  <div class="signup-container">
+    <div class="signup-hero">
+      <div class="logo">
+        <i class="fa-solid fa-compass-drafting"></i>
+        Wanderlust
+      </div>
+      <h1>Join Our Community of Travelers</h1>
+      <p>Sign up to unlock exclusive travel deals, save your favorite destinations, and share your adventures with fellow explorers.</p>
+      
+      <div class="benefits">
+        <div class="benefit-item">
+          <div class="benefit-icon">
+            <i class="fas fa-percent"></i>
+          </div>
+          <div class="benefit-text">
+            <h4>Exclusive Deals</h4>
+            <p>Access members-only discounts and promotions</p>
+          </div>
+        </div>
+        
+        <div class="benefit-item">
+          <div class="benefit-icon">
+            <i class="fas fa-bookmark"></i>
+          </div>
+          <div class="benefit-text">
+            <h4>Save Favorites</h4>
+            <p>Bookmark destinations and create travel wishlists</p>
+          </div>
+        </div>
+        
+        <div class="benefit-item">
+          <div class="benefit-icon">
+            <i class="fas fa-globe-americas"></i>
+          </div>
+          <div class="benefit-text">
+            <h4>Global Community</h4>
+            <p>Connect with travelers from around the world</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="signup-form-container">
+      <h2>Create Account</h2>
+      <p>Join thousands of travelers exploring the world</p>
+      
+      <form class="signup-form" action="/signup" method="POST">
+        <div class="form-group">
+          <label class="form-label" for="username">Username</label>
+          <div class="input-container">
+            <i class="fas fa-user"></i>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label" for="email">Email</label>
+          <div class="input-container">
+            <i class="fas fa-envelope"></i>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label" for="password">Password</label>
+          <div class="input-container">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="password" name="password" placeholder="Create a password" required>
+            <button type="button" class="password-toggle" id="passwordToggle">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+        </div>
+        
+        <button type="submit" class="btn-signup">Sign Up</button>
+        
+       
+        
+        <div class="login-link">
+          Already have an account? <a href="/login">Log in</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Password toggle functionality
+    const passwordToggle = document.getElementById('passwordToggle');
+    const passwordInput = document.getElementById('password');
+    
+    passwordToggle.addEventListener('click', () => {
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      
+      // Toggle eye icon
+      const eyeIcon = passwordToggle.querySelector('i');
+      if (type === 'password') {
+        eyeIcon.classList.remove('fa-eye-slash');
+        eyeIcon.classList.add('fa-eye');
+      } else {
+        eyeIcon.classList.remove('fa-eye');
+        eyeIcon.classList.add('fa-eye-slash');
+      }
+    });
+    
+    // Simulate alerts (in a real app, these would be conditionally rendered)
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        document.querySelectorAll('.alert').forEach(alert => {
+          alert.classList.add('show');
+        });
+      }, 300);
+    });
+  </script>
+</body>
+</html>

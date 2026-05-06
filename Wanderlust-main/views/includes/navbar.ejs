@@ -1,0 +1,101 @@
+<!-- Add this in your HTML file -->
+
+<!-- CSS styles -->
+<style>
+  .hero {
+    background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), 
+                url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') center/cover no-repeat;
+    min-height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3rem 1rem;
+    border-radius: 0 0 20px 20px;
+  }
+
+  .navbar .nav-link {
+    font-weight: 500;
+    margin-right: 0.8rem;
+  }
+
+  .navbar .nav-link:hover {
+    color: #fe424d;
+  }
+
+  .navbar-brand {
+    color: #fe424d !important;
+    font-weight: 700;
+  }
+
+  /* Dropdown customization */
+  .dropdown-toggle::after {
+    display: none;
+  }
+
+  #userDropdown {
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    font-size: 1.2rem;
+  }
+
+  .dropdown-menu {
+    border-radius: 10px;
+    overflow: hidden;
+  }
+</style>
+
+<!-- Navbar with User Dropdown -->
+<nav class="navbar navbar-expand-lg bg-light shadow-sm sticky-top border-bottom">
+  <div class="container">
+    <a class="navbar-brand fw-bold fs-4" href="#">
+      <i class="fa-solid fa-compass-drafting me-2" style="color: #fe424d;"></i>Wanderlust
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/listings">All Listings</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+            Add Listings
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/listings/new1">Create New Listing</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Right-aligned User Dropdown -->
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+          <button class="btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center dropdown-toggle"
+                  type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-user"></i>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="userDropdown">
+            <% if(!currUser) {%>
+            <li><a class="dropdown-item" href="/signup">Sign up</a></li>
+            <li><a class="dropdown-item" href="/login">Log in</a></li>
+            <li><hr class="dropdown-divider"></li>
+          <% } %>
+            <li><a class="dropdown-item" href="#">Help Centre</a></li>
+            <li><hr class="dropdown-divider"></li>
+             <% if(currUser) {%>
+            <li><a class="dropdown-item text-danger" href="/logout">Logout</a></li>
+             <% } %>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+

@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Listing | Wanderlust</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Leaflet CSS + JS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <style>
+        :root {
+            --primary: #fe424d;
+            --secondary: #4A90E2;
+            --accent: #FF9A76;
+            --light: #F8F9FA;
+            --dark: #343A40;
+            --surface: #ffffff;
+            --text-dark: #2d3748;
+            --text-light: #718096;
+            --border: #e2e8f0;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: var(--text-dark);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Navbar styling */
+        .navbar {
+            background-color: var(--surface) !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 1rem 0;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: 0.5px;
+            color: var(--primary);
+        }
+        
+        .navbar-brand i {
+            margin-right: 8px;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            color: var(--text-dark);
+            position: relative;
+            margin: 0 8px;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary);
+        }
+        
+        .btn-search {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-search:hover {
+            background-color: #e63742;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(254, 66, 77, 0.25);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 60px 0 30px;
+            text-align: center;
+            background: linear-gradient(135deg, #fe424d 0%, #4A90E2 100%);
+            color: white;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hero h1 {
+            font-weight: 700;
+            font-size: 2.4rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        
+        /* Form Container */
+        .form-container {
+            max-width: 700px;
+            margin: 0 auto 50px;
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 12px 12px 0 0;
+        }
+        
+        .form-container h3 {
+            text-align: center;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: var(--text-dark);
+            font-size: 1.8rem;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .form-container h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .form-container input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            border-radius: 8px;
+            color: var(--text-dark);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-container input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(254, 66, 77, 0.1);
+        }
+        
+        .form-container input::placeholder {
+            color: var(--text-light);
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+        
+        /* Submit Button */
+        .submit-btn {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 40px auto 0;
+            padding: 14px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(254, 66, 77, 0.25);
+        }
+        
+        .submit-btn:hover {
+            background: #e63742;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(254, 66, 77, 0.3);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(1px);
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--surface);
+            padding: 30px 0 20px;
+            border-top: 1px solid var(--border);
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-left {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .copyright {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .footer-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .language-currency {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 30px 20px;
+                margin: 0 15px 40px;
+            }
+            
+            .hero {
+                padding: 40px 0 20px;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+                padding: 0 15px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+            
+            .footer-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="fa-solid fa-compass-drafting"></i>Wanderlust</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/listings">All Listings</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Add Listings
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/listings/new1">Create New Listings</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-search" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="container">
+            <h1>Create Your Dream Travel Experience</h1>
+            <p>Compare prices and discover great deals with free cancellation</p>
+        </div>
+    </div>
+
+    <!-- Form Container -->
+    <div class="container">
+        <div class="form-container">
+            <h3>Create your New Listing</h3>
+            <form method="POST" action="/listings" novalidate class="needs-validation">
+                <div class="form-group">
+                    <label class="form-label" for="title">Title</label>
+                    <input type="text" id="title" placeholder="Enter title" name="listing[title]" class="form-control" required>
+                    <div class="invalid-feedback">Please enter a title</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="description">Description</label>
+                    <input type="text" id="description" placeholder="Enter description" name="listing[description]" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="image">Image URL</label>
+                    <input type="text" id="image" placeholder="Enter image URL" name="listing[image][url]" class="form-control" required>
+                    <div class="invalid-feedback">Please enter a valid URL</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="price">Price</label>
+                    <input type="number" id="price" placeholder="Enter price ($)" name="listing[price]" class="form-control" required>
+                    <div class="invalid-feedback">Please enter a valid price</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="country">Country</label>
+                    <input type="text" id="country" placeholder="Enter country" name="listing[country]" class="form-control" required>
+                    <div class="invalid-feedback">Please enter a country</div>
+                </div>
+                <div class="form-group">
+                   <!-- Location Input -->
+<label for="location">Location</label>
+<input id="location" name="listing[location]" class="form-control" placeholder="Enter a city" required>
+
+<!-- Map Display -->
+<div id="map" style="height: 400px; margin-top: 1rem;"></div>
+
+<!-- Hidden Inputs for Coordinates -->
+<input type="hidden" id="lat" name="listing[lat]">
+<input type="hidden" id="lng" name="listing[lng]">
+>
+                </div>
+                <button class="submit-btn" type="submit">Add Listing</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <div class="copyright">© 2025 Wanderlust, Inc.</div>
+                <div class="footer-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Sitemap</a>
+                    <a href="#">Company details</a>
+                </div>
+            </div>
+            
+            <div class="footer-right">
+                <div class="language-currency">
+                    <span>🌐 English (IN)</span>
+                    <span>₹ INR</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Form validation
+        (() => {
+            'use strict'
+            const forms = document.querySelectorAll('.needs-validation')
+            
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })();
+        
+        // Add focus effects to inputs
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+                this.parentElement.style.zIndex = '10';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+                this.parentElement.style.zIndex = '1';
+            });
+        });
+    </script>
+    <script>
+  const locationInput = document.getElementById("location");
+  const latInput = document.getElementById("lat");
+  const lngInput = document.getElementById("lng");
+
+  const map = L.map('map').setView([20.5937, 78.9629], 4); // Default view: India
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  let marker;
+
+  locationInput.addEventListener("change", async () => {
+    const query = locationInput.value;
+    const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}`);
+    const data = await res.json();
+
+    if (data.length > 0) {
+      const { lat, lon } = data[0];
+      latInput.value = lat;
+      lngInput.value = lon;
+
+      const coords = [lat, lon];
+      map.setView(coords, 13);
+
+      if (marker) map.removeLayer(marker);
+      marker = L.marker(coords).addTo(map).bindPopup(query).openPopup();
+    } else {
+      alert("Location not found");
+    }
+  });
+</script>
+
+</body>
+</html>

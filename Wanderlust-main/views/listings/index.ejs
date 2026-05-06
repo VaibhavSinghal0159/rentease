@@ -1,0 +1,878 @@
+
+<!-- Flash Messages -->
+<div class="container position-fixed top-0 start-50 translate-middle-x mt-3" style="z-index: 1050; max-width: 90%;">
+  <% if (success && success.length > 0) { %>
+    <div class="alert alert-success alert-dismissible fade show shadow" role="alert" style="border-radius: 12px;">
+      <i class="fa-solid fa-circle-check me-2"></i> <%= success %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% } %>
+
+  <% if (error && error.length > 0) { %>
+    <div class="alert alert-danger alert-dismissible fade show shadow" role="alert" style="border-radius: 12px;">
+      <i class="fa-solid fa-triangle-exclamation me-2"></i> <%= error %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% } %>
+</div>
+
+<% layout("/layouts/boilerplate") %> 
+
+ <style>
+  /* Info Highlights Section */
+.info-highlights {
+  display: flex;
+  justify-content: space-around;
+  padding: 3rem 2rem;
+  background-color: #fff;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.highlight {
+  flex: 1 1 250px;
+  max-width: 300px;
+  margin: 1rem;
+}
+
+.highlight i {
+  font-size: 2rem;
+  color: #1a3a5f;
+  margin-bottom: 0.5rem;
+}
+
+/* FAQ Section */
+.faq-section {
+  padding: 3rem 2rem;
+  background-color: #f9f9f9;
+}
+
+.faq-section h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.faq-list {
+  max-width: 800px;
+  margin: auto;
+}
+
+.faq-item {
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 0.5rem;
+}
+
+.faq-item summary {
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.faq-item summary::after {
+  content: " ⌄";
+  float: right;
+  font-size: 1rem;
+}
+
+.faq-item[open] summary::after {
+  content: " ⌃";
+}
+
+  
+  .alert {
+  animation: fadeSlide 0.6s ease-out;
+}
+
+@keyframes fadeSlide {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+    .card-img-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0.75rem;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), transparent 60%);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 1;
+  pointer-events: none; /* so buttons below still work */
+}
+
+.overlay-top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.overlay-badge {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  color: white;
+}
+
+/* Modal backdrop */
+.modal {
+  display: none; /* hidden by default */
+  position: fixed;
+  z-index: 1000; /* above everything */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5); /* semi-transparent background */
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal content box */
+.modal-content {
+  background-color: #fff;
+  padding: 1.5rem 2rem;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 300px;
+  margin: auto;
+  font-size: 1.2rem;
+  font-weight: 600;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* OK button */
+#modalOkBtn {
+  margin-top: 1rem;
+  padding: 0.5rem 1.5rem;
+  background-color: #FF385C;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#modalOkBtn:hover {
+  background-color: #e03150;
+}
+
+
+
+
+    #typing-text {
+  font-weight: 700;
+  text-align: center;
+  font-size: 2.4rem;
+  margin-bottom: 2rem;
+  min-height: 3rem;
+  border-right: 2px solid black; /* cursor */
+  white-space: nowrap;
+  overflow: hidden;
+  animation: blink-caret 0.75s step-end infinite;
+}
+
+@keyframes blink-caret {
+  from, to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: black;
+  }
+}
+
+/* Hero Section */
+.hero {
+   background-image: url('https://images.unsplash.com/photo-1596120236172-231999844ade?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* Replace with your image */
+  background-size: cover; 
+  background-position: center;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  padding: 2rem;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+/* Search Box */
+.search-box {
+  background: white;
+  display: flex;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  overflow: hidden;
+  width: 80%;
+  max-width: 1000px;
+  padding: 0.8rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-box input,
+.search-box select,
+.search-box button {
+  border: none;
+  padding: 0.9rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  flex: 1 1 150px;
+}
+
+.search-box button {
+  background-color: #4285F4;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-box button:hover {
+  background-color: #2c6fd6;
+}
+
+
+
+  body {
+    background-color: #fff;
+    font-family: 'Segoe UI', sans-serif;
+    color: #222;
+    margin: 0;
+    padding: 2rem;
+  }
+
+  h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    font-weight: 600;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+
+  .card {
+    position: relative;
+   
+    border: none;
+    border-radius: 1rem;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+  }
+
+  .card-img-top {
+    width: 100%;
+    height: 13rem;
+    object-fit: cover;
+    border-bottom: 1px solid #eee;
+  }
+
+  .card-body {
+    padding: 0.75rem 1rem 1rem 1rem;
+  }
+
+  .card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 0.25rem;
+    color: #222;
+  }
+
+  .card-price {
+    font-size: 0.9rem;
+    color: #555;
+  }
+
+  .btn-primary {
+    display: block;
+    width: 100%;
+    background-color: #FF385C;
+    color: #fff;
+    border: none;
+    padding: 0.5rem;
+    margin-top: 0.7rem;
+    border-radius: 0.6rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  .btn-primary:hover {
+    background-color: #e03150;
+  }
+
+  /* Guest favourite badge */
+  .guest-fav {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    background-color: #ffffff;
+    color: #000;
+    font-size: 0.75rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    z-index: 2;
+  }
+
+  /* Star rating badge */
+  .rating-badge {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background-color: #ffffff;
+    color: #000;
+    font-size: 0.75rem;
+    padding: 0.35rem 0.6rem;
+    border-radius: 999px;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .rating-badge i {
+    color: #FF385C;
+    font-size: 0.8rem;
+  }
+</style>   
+
+
+
+<!-- AOS CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+
+
+<body>
+
+
+<!-- Popup Modal -->
+<div id="priceModal" class="modal">
+  <div class="modal-content">
+    <p>Get 25% off on your first Booking </p>
+    <button id="modalOkBtn">OK</button>
+  </div>
+</div>
+
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Discover Your Perfect Stay</h1>
+            <div id="typing-text"></div>
+            <p>Find and book exceptional accommodations around the world</p>
+            
+           
+           
+        </div>
+    </section>
+ <br><br>
+
+<!-- Promotional Section with Images -->
+<section class="promo-section">
+    <div class="container">
+        <!-- Main Promo Card with Background Image -->
+        <div class="promo-main-card" style="background-image: linear-gradient(rgba(227, 28, 95, 0.85), rgba(227, 28, 95, 0.85)), url('https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80');">
+            <div class="promo-main-content">
+                <h2><i class="fas fa-crown"></i> Members save 10% or more on over 100,000 hotels worldwide</h2>
+                <p class="promo-subtitle">Sign in to unlock exclusive deals and rewards</p>
+                
+                <div class="promo-grid">
+                    <!-- Promo Item 1 with Image -->
+                    <div class="promo-item" style="background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80');">
+                        <div class="promo-overlay"></div>
+                        <div class="promo-content">
+                            <i class="fas fa-gift promo-icon"></i>
+                            <p class="promo-text">Stay 10 nights, get 1 reward night</p>
+                            <a href="#" class="promo-link">Search stay <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                    
+                    <!-- Promo Item 2 with Image -->
+                    <div class="promo-item" style="background-image: url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80');">
+                        <div class="promo-overlay"></div>
+                        <div class="promo-content">
+                            <i class="fas fa-calendar-times promo-icon"></i>
+                            <p class="promo-text">Flexible cancellations anytime</p>
+                            <a href="#" class="promo-link">Book now <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                    
+                    <!-- Promo Item 3 with Image -->
+                    <div class="promo-item" style="background-image: url('https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80');">
+                        <div class="promo-overlay"></div>
+                        <div class="promo-content">
+                            <i class="fas fa-columns promo-icon"></i>
+                            <p class="promo-text">Compare hotels side-by-side</p>
+                            <a href="#" class="promo-link">Compare hotels <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Discover Section with Category Cards -->
+        <div class="discover-section">
+            <h3>Discover your new favourite stay</h3>
+            <div class="category-grid">
+                <!-- Category Card 1 -->
+                <a href="#" class="category-card" style="background-image: url('https://plus.unsplash.com/premium_photo-1684175656320-5c3f701c082c?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
+                    <div class="category-overlay"></div>
+                    <div class="category-content">
+                        <i class="fas fa-building"></i>
+                        <span>Apart hotel</span>
+                    </div>
+                </a>
+                
+                <!-- Category Card 2 -->
+                <a href="#" class="category-card" style="background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80');">
+                    <div class="category-overlay"></div>
+                    <div class="category-content">
+                        <i class="fas fa-umbrella-beach"></i>
+                        <span>Resort</span>
+                    </div>
+                </a>
+                
+                <!-- Category Card 3 -->
+                <a href="#" class="category-card" style="background-image: url('https://images.unsplash.com/photo-1493809842364-78817add7ffb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80');">
+                    <div class="category-overlay"></div>
+                    <div class="category-content">
+                        <i class="fas fa-home"></i>
+                        <span>Apartment</span>
+                    </div>
+                </a>
+                
+                <!-- Category Card 4 -->
+                <a href="#" class="category-card" style="background-image: url('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80');">
+                    <div class="category-overlay"></div>
+                    <div class="category-content">
+                        <i class="fas fa-spa"></i>
+                        <span>Spa</span>
+                    </div>
+                </a>
+                
+                <!-- Category Card 5 -->
+                <a href="#" class="category-card" style="background-image: url('https://plus.unsplash.com/premium_photo-1697729600773-5b039ef17f3b?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
+                    <div class="category-overlay"></div>
+                    <div class="category-content">
+                        <i class="fas fa-ship"></i>
+                        <span>Houseboat</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+/* Promotional Section with Images - CSS */
+.promo-section {
+    max-width: 1200px;
+    margin: 0 auto 48px;
+    padding: 0 24px;
+}
+
+.promo-main-card {
+    border-radius: var(--border-radius);
+    padding: 40px 32px;
+    color: white;
+    margin-bottom: 32px;
+    box-shadow: var(--shadow);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.promo-main-content {
+    position: relative;
+    z-index: 2;
+}
+
+.promo-main-card h2 {
+    font-size: 1.75rem;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+}
+
+.promo-subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 32px;
+    opacity: 0.9;
+}
+
+.promo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.promo-item {
+    border-radius: 12px;
+    padding: 24px;
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    transition: all 0.4s ease;
+}
+
+.promo-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
+    z-index: 1;
+}
+
+.promo-content {
+    position: relative;
+    z-index: 2;
+}
+
+.promo-icon {
+    font-size: 1.75rem;
+    margin-bottom: 16px;
+    color: white;
+}
+
+.promo-text {
+    margin-bottom: 16px;
+    font-size: 1.1rem;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.promo-link {
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+}
+
+.promo-link:hover {
+    gap: 10px;
+    text-decoration: underline;
+}
+
+.promo-item:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* Discover Section with Image Cards */
+.discover-section {
+    background-color: white;
+    border-radius: var(--border-radius);
+    padding: 32px;
+    box-shadow: var(--shadow);
+}
+
+.discover-section h3 {
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+    color: var(--dark-gray);
+    font-weight: 600;
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+}
+
+.category-card {
+    border-radius: 12px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 16px;
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.category-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 100%);
+    z-index: 1;
+}
+
+.category-content {
+    position: relative;
+    z-index: 2;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.category-content i {
+    font-size: 1.5rem;
+}
+
+.category-card span {
+    font-weight: 600;
+    text-align: center;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .promo-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .category-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .promo-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .promo-main-card h2 {
+        font-size: 1.5rem;
+    }
+    
+    .discover-section h3 {
+        font-size: 1.25rem;
+    }
+    
+    .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .category-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .category-card {
+        height: 100px;
+    }
+}
+</style>
+
+
+    <h2>All Listings</h2>
+
+<!-- <form method="GET" action="/listings/new">
+    <button>Create New Listing</button>
+</form> -->
+
+
+
+
+
+
+<div class="row">
+    
+<% for(let listing of allListings){ %>
+    
+<div class="card" style="width: 100rem;">
+  <div style="position: relative;">
+    <img src="<%=listing.image.url%>" class="card-img-top" alt="listing_image" style="height: 13rem;">
+    
+    <!-- Overlay -->
+    <div class="card-img-overlay">
+      <div class="overlay-top">
+        <span class="overlay-badge">Guest Favorite</span>
+        <span class="overlay-badge">
+          <i class="fa fa-star"></i> 4.0+
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <h5 class="card-title"><%= listing.title %></h5>
+   <p class="card-price">
+  &#8377;<%= listing.price ? listing.price.toLocaleString("en-IN") : "N/A" %> for 2 nights
+</p>
+
+    <a href="/listings/<%= listing._id %>" class="btn btn-primary">Show Details</a>
+  </div>
+</div>
+
+
+
+<% } %>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+</ul>
+
+<!-- Info Highlights Section -->
+<section class="info-highlights">
+  <div class="highlight">
+    <i class="fas fa-shield-alt"></i>
+    <h4>Book with confidence</h4>
+    <p>Get 24/7 support and discover helpful reviews from our trusted community of guests.</p>
+  </div>
+  <div class="highlight">
+    <i class="fas fa-users-cog"></i>
+    <h4>Get the amenities you want</h4>
+    <p>Help your whole group feel at home with great extras and more space to spread out.</p>
+  </div>
+  <div class="highlight">
+    <i class="fas fa-calendar-check"></i>
+    <h4>Keep it flexible</h4>
+    <p>Stays with flexible cancellation make it easy to rebook if your plans change.</p>
+  </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section">
+  <h2>Your questions, answered</h2>
+  <div class="faq-list">
+    <div class="faq-item">
+      <details>
+        <summary>What is Wanderlust and how does it work?</summary>
+        <p>Wanderlust connects people who want to rent out their homes with people looking for accommodations.</p>
+      </details>
+    </div>
+    <div class="faq-item">
+      <details>
+        <summary>How do I use search filters?</summary>
+        <p>Use the filter options to narrow down listings by price, amenities, location, and more.</p>
+      </details>
+    </div>
+    <div class="faq-item">
+      <details>
+        <summary>Do I need to meet my Host?</summary>
+        <p>Some hosts offer self check-in, others prefer a personal welcome. It depends on the listing.</p>
+      </details>
+    </div>
+    <div class="faq-item">
+      <details>
+        <summary>What if I need to cancel due to a problem with the listing or Host?</summary>
+        <p>We offer flexible cancellation options and support in case something goes wrong.</p>
+      </details>
+    </div>
+    <div class="faq-item">
+      <details>
+        <summary>Need more information?</summary>
+        <p>You can always reach out to our Help Center or contact us directly.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+
+
+<script>
+ src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+
+window.onload = function() {
+  // Show the modal
+  // const modal = document.getElementById('priceModal');
+  // modal.style.display = 'flex'; // flex to center contents
+
+  // When OK button clicked, hide the modal
+  // const okBtn = document.getElementById('modalOkBtn');
+  // okBtn.onclick = function() {
+  //   modal.style.display = 'none';
+  // };
+
+  // Typing effect
+  const text = "Find hotels and place to stay...";
+  const typingSpeed = 100; // ms per char
+  let index = 0;
+  const typingElement = document.getElementById("typing-text");
+  function typeWriter() {
+    if (index < text.length) {
+      typingElement.textContent += text.charAt(index);
+      index++;
+      setTimeout(typeWriter, typingSpeed);
+    }
+  }
+  typeWriter();
+};
+
+</script>
+
+</body>
+

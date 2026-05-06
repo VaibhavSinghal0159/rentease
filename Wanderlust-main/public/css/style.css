@@ -1,0 +1,43 @@
+body{
+     font-family: "Plus Jakarta Sans", sans-serif !important;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+
+}
+
+
+.navbar{
+    height: 5rem !important;
+    width: 100% !important
+} 
+.nav-link{
+    color: #222222 !important;
+}
+.card-price{
+    font-size: small !important;
+    color: #6A6A6A !important; 
+}
+
+
+.card{
+   margin-right: 50px;
+   border: none !important;
+
+   
+}
+.card-img-top{
+    border-radius: 0.7rem !important;
+    width: 100% !important;
+    object-fit: cover;
+}
+.card-text{
+    font-weight: 400
+    ;
+}
+
+
+
+  
+/* new page */
+
