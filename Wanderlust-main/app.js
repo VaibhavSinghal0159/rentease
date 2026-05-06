@@ -190,7 +190,7 @@ app.get("/login",(req,res)=>{
 })
 
 app.post("/login", saveRedirectUrl ,passport.authenticate("local",{ failureRedirect : "/login" , failureFlash : true}),async(req,res)=>{
-    req.flash("success","Welcome to Wanderlust!")
+    req.flash("success","Welcome to RentEase!")
     let redirectUrl = res.locals.redirectUrl || "/listings"
     res.redirect(redirectUrl)
 })
